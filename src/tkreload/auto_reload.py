@@ -22,12 +22,18 @@ import time
 from rich.console import Console
 
 class AutoReloadManager:
+
+    """Class to manage the auto-reload feature."""
+
     def __init__(self, console):
         self.console = console
         self.auto_reload = False
         self.stop_reload_event = threading.Event()
 
     def toggle(self):
+        
+        """Toggles the auto-reload feature on or off."""
+
         if self.auto_reload:
             self.console.print("[red]Stopping auto-reload...[/red]")
             self.stop_auto_reload()

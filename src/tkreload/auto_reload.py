@@ -52,3 +52,9 @@ class AutoReloadManager:
             time.sleep(5)
         self.console.print("[yellow]Reloading stopped.[/yellow]")
 
+    def get_status(self):
+        
+        """Returns the current status of auto-reload."""
+
+        return self.auto_reload
+

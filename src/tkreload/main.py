@@ -52,23 +52,23 @@ class TkreloadApp:
         """Starts the application, including monitoring and handling commands."""
         self.run_tkinter_app()
         
-        # Commenting out auto-reload monitoring
-        # if self.auto_reload_manager.get_status():
-        #     self.monitor_file_changes(self.restart_app)
-
         try:
-            self.console.print("\n\n\t[bold cyan]Tkreload[/bold cyan] [bold blue]is running ✅\n\t[/bold blue]- Press [bold cyan]Enter + H[/bold cyan] for help,\n\t[bold cyan]- Enter + R[/bold cyan] to restart,\n\t[bold cyan]- Enter + A[/bold cyan] to toggle auto-reload (currently [bold magenta]{}[/bold magenta]),\n\t[bold red]- Ctrl + C[/bold red] to exit.".format("Disabled"))  # Auto-reload message set to "Disabled"
-
-            # Setup keyboard listeners for commands
-            keyboard.add_hotkey('enter+h', lambda: show_help("Disabled"))  # Auto-reload status hardcoded as "Disabled"
-            keyboard.add_hotkey('enter+r', self.restart_app)
-            keyboard.add_hotkey('enter+a', lambda: self.console.print("[bold yellow]Auto-reload feature is not available yet. Still in development.[/bold yellow]"))  # Message added for auto-reload toggle
+            self.console.print("\n\n\t[bold cyan]Tkreload[/bold cyan] [bold blue]is running ✅\n\t[/bold blue]- Press [bold cyan]H[/bold cyan] for help,\n\t[bold cyan]R[/bold cyan] to restart,\n\t[bold cyan]A[/bold cyan] to toggle auto-reload (currently [bold magenta]{}[/bold magenta]),\n\t[bold red]Ctrl + C[/bold red] to exit.".format("Disabled"))
 
             while True:
-                # Commenting out auto-reload status check
-                # if self.auto_reload_manager.get_status():
-                #     self.monitor_file_changes(self.restart_app)
-                time.sleep(1)
+                # Use select to check for terminal input
+                if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
+                    user_input = sys.stdin.read(1).lower()  # Capture a single character input
+
+                    # Check the input and perform the appropriate action
+                    if user_input == 'enter+h':
+                        show_help("Disabled")  # Auto-reload status hardcoded as "Disabled"
+                    elif user_input == 'enter+r':
+                        self.restart_app()
+                    elif user_input == 'enter+a':
+                        self.console.print("[bold yellow]Auto-reload feature is not available yet. Still in development.[/bold yellow]")
+
+                time.sleep(1)  # Sleep to avoid busy-waiting
 
         except KeyboardInterrupt:
             self.console.print("[bold red]Ctrl + C detected. Exiting...[/bold red]")

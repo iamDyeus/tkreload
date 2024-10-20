@@ -9,7 +9,7 @@ from .app_event_handler import AppFileEventHandler
 from .file_utils import clear_terminal, file_exists
 from .progress import show_progress
 from .help import show_help
-from .auto_reload import AutoReloadManager  # Uncommented auto-reload import
+from .auto_reload import AutoReloadManager
 
 class TkreloadApp:
     """Main application class for managing the Tkinter app."""

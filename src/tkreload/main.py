@@ -2,7 +2,6 @@ import sys
 import subprocess
 import time
 import os
-import keyboard  
 from rich.console import Console 
 from watchdog.observers import Observer
 from .app_event_handler import AppFileEventHandler

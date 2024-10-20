@@ -9,14 +9,14 @@ from .app_event_handler import AppFileEventHandler
 from .file_utils import clear_terminal, file_exists
 from .progress import show_progress
 from .help import show_help
-# from .auto_reload import AutoReloadManager  # Commenting out auto-reload import
+from .auto_reload import AutoReloadManager  # Uncommented auto-reload import
 
 class TkreloadApp:
     """Main application class for managing the Tkinter app."""
 
     def __init__(self, app_file):
         self.console = Console()
-        # self.auto_reload_manager = AutoReloadManager(console=self.console)  # Commenting out auto-reload manager
+        self.auto_reload_manager = AutoReloadManager(console=self.console)  # Uncommented and initialized auto-reload manager
         self.app_file = app_file
         self.process = None
         self.observer = None
@@ -52,22 +52,20 @@ class TkreloadApp:
         """Starts the application, including monitoring and handling commands."""
         self.run_tkinter_app()
         
-        # Commenting out auto-reload monitoring
-        # if self.auto_reload_manager.get_status():
-        #     self.monitor_file_changes(self.restart_app)
+        if self.auto_reload_manager.get_status():  # Start monitoring if auto-reload is enabled
+            self.monitor_file_changes(self.restart_app)
 
         try:
-            self.console.print("\n\n\t[bold cyan]Tkreload[/bold cyan] [bold blue]is running ✅\n\t[/bold blue]- Press [bold cyan]Enter + H[/bold cyan] for help,\n\t[bold cyan]- Enter + R[/bold cyan] to restart,\n\t[bold cyan]- Enter + A[/bold cyan] to toggle auto-reload (currently [bold magenta]{}[/bold magenta]),\n\t[bold red]- Ctrl + C[/bold red] to exit.".format("Disabled"))  # Auto-reload message set to "Disabled"
+            self.console.print("\n\n\t[bold cyan]Tkreload[/bold cyan] [bold blue]is running ✅\n\t[/bold blue]- Press [bold cyan]Enter + H[/bold cyan] for help,\n\t[bold cyan]- Enter + R[/bold cyan] to restart,\n\t[bold cyan]- Enter + A[/bold cyan] to toggle auto-reload (currently [bold magenta]{}[/bold magenta]),\n\t[bold red]- Ctrl + C[/bold red] to exit.".format("Enabled" if self.auto_reload_manager.get_status() else "Disabled"))
 
             # Setup keyboard listeners for commands
-            keyboard.add_hotkey('enter+h', lambda: show_help("Disabled"))  # Auto-reload status hardcoded as "Disabled"
+            keyboard.add_hotkey('enter+h', lambda: show_help("Enabled" if self.auto_reload_manager.get_status() else "Disabled"))
             keyboard.add_hotkey('enter+r', self.restart_app)
-            keyboard.add_hotkey('enter+a', lambda: self.console.print("[bold yellow]Auto-reload feature is not available yet. Still in development.[/bold yellow]"))  # Message added for auto-reload toggle
+            keyboard.add_hotkey('enter+a', self.auto_reload_manager.toggle)  # Toggle auto-reload when 'Enter + A' is pressed
 
             while True:
-                # Commenting out auto-reload status check
-                # if self.auto_reload_manager.get_status():
-                #     self.monitor_file_changes(self.restart_app)
+                if self.auto_reload_manager.get_status():
+                    self.monitor_file_changes(self.restart_app)
                 time.sleep(1)
 
         except KeyboardInterrupt:

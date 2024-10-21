@@ -13,11 +13,17 @@ app.geometry("500x500")
 
 
 # Create a label
-label = tk.Label(app, text="tkreload Demo Application, fuck around and find out", font=("Helvetica", 16))
+label = tk.Label(app, text="Hello from iamDyeus 👋", font=("Helvetica", 16))
 label.pack(pady=50)
 
-label = tk.Label(app, text="Change stuff here, and press ENTER+R to refresh", font=("Helvetica", 16))
-label.pack(pady=50)
+label = tk.Label(app, text="use `tkreload` to open this app, and play around!", font=("Helvetica", 12))
+label.pack(pady=30)
+
+label = tk.Label(app, text="in your terminal: `tkreload sample_app.py`", font=("Helvetica", 12))
+label.pack(pady=5)
+
+label = tk.Label(app, text="When the reloader is running, press 'H' to see list of commands", font=("Helvetica", 10))
+label.pack(pady=10)
 
 # Create a button
 button = tk.Button(app, text="Click Me!", command=on_button_click)

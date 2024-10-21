@@ -76,10 +76,14 @@ tkreload your_app.py
 Now, whenever you save changes to your script, tkreload will automatically reload your application.
 
 ## Testing
-Tests are critical to ensuring that the functionality and reliability of tkreload are maintained. Here's how you can run the test suite for the project:
+Ensuring the functionality and reliability of tkreload is crucial. Follow these steps to run the test suite for the project:
 1. Install Testing Dependencies
-To run the tests, you will need to install the testing dependencies (e.g., pytest if it's being used). Make sure to install the dependencies from the requirements.txt file:
-bash
+Before running the tests, install the required dependencies (e.g., pytest). You can do this by installing the packages listed in the requirements.txt file.
+2. Running Tests
+Navigate to the root directory of the project (`tkreload`) and run the tests using `pytest` with the following command:
+```bash
+pytest .
+```
 
 # Contributing
 
@@ -93,7 +97,7 @@ Contributions are welcome and greatly appreciated! Here's how you can contribute
 
 # License
 
-Distributed under the MIT License. See [`LICENSE`](LICENSE) for more information.
+Distributed under the Apache-2.0 License. See [`LICENSE`](LICENSE) for more information.
 
 # Acknowledgments
 - Inspired by the need for efficient development workflows

@@ -15,6 +15,7 @@
 [Installation](#installation) •
 [Usage](#usage) •
 [Contributing](#contributing) •
+[Testing](#testing) •
 [License](#license)
 
 </div>

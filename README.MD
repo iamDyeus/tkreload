@@ -75,7 +75,7 @@ tkreload your_app.py
 
 Now, whenever you save changes to your script, tkreload will automatically reload your application.
 
-## Running Tests
+## Testing
 Tests are critical to ensuring that the functionality and reliability of tkreload are maintained. Here's how you can run the test suite for the project:
 1. Install Testing Dependencies
 To run the tests, you will need to install the testing dependencies (e.g., pytest if it's being used). Make sure to install the dependencies from the requirements.txt file:

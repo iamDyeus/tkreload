@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch, Mock, MagicMock
-from src.tkreload.main import TkreloadApp, main
+from tkreload.main import TkreloadApp, main
 from rich.console import Console
 import sys
 import time
@@ -10,8 +10,8 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..',
 
 class TestTkreloadApp(unittest.TestCase):
 
-    @patch('src.tkreload.main.subprocess.Popen')
-    @patch('src.tkreload.main.show_progress')
+    @patch('tkreload.main.subprocess.Popen')
+    @patch('tkreload.main.show_progress')
     def test_run_tkinter_app(self, mock_show_progress, mock_popen):
         app = TkreloadApp('test_app.py')
         process = Mock()
@@ -22,8 +22,8 @@ class TestTkreloadApp(unittest.TestCase):
         mock_popen.assert_called_once_with([sys.executable, 'test_app.py'])
         self.assertEqual(result, process)
     
-    @patch('src.tkreload.main.Observer')
-    @patch('src.tkreload.main.AppFileEventHandler')
+    @patch('tkreload.main.Observer')
+    @patch('tkreload.main.AppFileEventHandler')
     def test_monitor_file_changes(self, mock_event_handler, mock_observer):
         app = TkreloadApp('test_app.py')
         mock_callback = Mock()
@@ -33,8 +33,8 @@ class TestTkreloadApp(unittest.TestCase):
         mock_observer().schedule.assert_called_once()
         mock_observer().start.assert_called_once()
 
-    @patch('src.tkreload.main.time.sleep', side_effect=KeyboardInterrupt)
-    @patch('src.tkreload.main.subprocess.Popen')
+    @patch('tkreload.main.time.sleep', side_effect=KeyboardInterrupt)
+    @patch('tkreload.main.subprocess.Popen')
     def test_start_keyboard_interrupt(self, mock_popen, mock_sleep):
         app = TkreloadApp('test_app.py')
         mock_process = Mock()
@@ -45,17 +45,17 @@ class TestTkreloadApp(unittest.TestCase):
         
         mock_process.terminate.assert_called_once()
 
-    @patch('src.tkreload.main.sys.argv', ['tkreload', 'test_app.py'])
-    @patch('src.tkreload.main.file_exists', return_value=True)
-    @patch('src.tkreload.main.TkreloadApp')
+    @patch('tkreload.main.sys.argv', ['tkreload', 'test_app.py'])
+    @patch('tkreload.main.file_exists', return_value=True)
+    @patch('tkreload.main.TkreloadApp')
     def test_main_function(self, mock_tkreload_app, mock_file_exists):
         main()
         mock_file_exists.assert_called_once_with('test_app.py')
         mock_tkreload_app.assert_called_once_with('test_app.py')
         mock_tkreload_app().start.assert_called_once()
 
-    @patch('src.tkreload.main.sys.argv', ['tkreload'])
-    @patch('src.tkreload.main.Console')
+    @patch('tkreload.main.sys.argv', ['tkreload'])
+    @patch('tkreload.main.Console')
     def test_main_function_no_file_provided(self, mock_console):
         with self.assertRaises(SystemExit):
             main()

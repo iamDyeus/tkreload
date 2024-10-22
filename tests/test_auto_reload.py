@@ -3,7 +3,7 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 
-from src.tkreload.auto_reload import AutoReloadManager
+from tkreload.auto_reload import AutoReloadManager
 from rich.console import Console
 
 

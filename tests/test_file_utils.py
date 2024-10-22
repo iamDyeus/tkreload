@@ -2,7 +2,7 @@ import unittest
 import os
 import sys
 from unittest.mock import patch
-from src.tkreload.file_utils import file_exists, clear_terminal
+from tkreload.file_utils import file_exists, clear_terminal
 
 class TestFileUtils(unittest.TestCase):
 

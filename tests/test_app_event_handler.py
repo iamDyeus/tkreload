@@ -1,6 +1,6 @@
 import unittest
-from src.tkreload.app_event_handler import AppFileEventHandler
-from src.tkreload.auto_reload import AutoReloadManager
+from tkreload.app_event_handler import AppFileEventHandler
+from tkreload.auto_reload import AutoReloadManager
 from unittest.mock import Mock, MagicMock
 from watchdog.events import FileModifiedEvent
 from rich.console import Console

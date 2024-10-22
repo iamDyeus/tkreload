@@ -6,7 +6,6 @@
 <br />
 ![Static Badge](https://img.shields.io/badge/Language-Python-red)
 ![GitHub last commit](https://img.shields.io/github/last-commit/iamDyeus/tkreload)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 <p class="align center">
 <h4><code>tkreload</code> is an open-source tool for automatically reloading terminal-based Python applications, saving developers valuable time.</h4>
@@ -30,10 +29,10 @@ Let’s assume that a developer restarts their terminal application approximatel
 tkreload solves this issue by providing an automatic reload mechanism for terminal-based Python applications, particularly those using Tkinter. It eliminates the need for manual restarts, saving developers hours of time and streamlining the debugging process.
 
 ## Without tkreload
-![Without tkreload](./src/images/without.gif)
+![Without tkreload](./github/images/without.gif)
 
 ## With tkreload
-![With tkreload](./src/images/with.gif)
+![With tkreload](./github/images/with.gif)
 
 # Getting Started
 
@@ -94,6 +93,8 @@ Contributions are welcome and greatly appreciated! Here's how you can contribute
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+
+![COMMUNISM](./.github/images/communism.png)
 
 # License
 

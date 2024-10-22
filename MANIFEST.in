@@ -1,0 +1,29 @@
+# Include the license file
+include LICENSE
+
+# Include the README file
+include README.md
+
+# Include all Python source files
+recursive-include src *.py
+
+# Include any additional data files your package might need
+# recursive-include src/tkreload/data *
+
+# Exclude any compiled Python files
+global-exclude *.pyc
+global-exclude *.pyo
+global-exclude __pycache__
+
+# Exclude any development or temporary files
+exclude .gitignore
+exclude .travis.yml
+exclude tox.ini
+exclude .coveragerc
+exclude .pylintrc
+
+# Exclude test directory
+prune tests
+
+# Exclude any documentation source files (if you have a separate docs directory)
+# prune docs

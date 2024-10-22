@@ -85,7 +85,7 @@ class TkreloadApp:
         if self.auto_reload_manager.get_status():
             self.reload_count = 0
         status = "Enabled" if self.auto_reload_manager.get_status() else "Disabled"
-        self.console.print(f"[bold yellow]Auto-reload is now {status}[/bold yellow]")
+        # self.console.print(f"[bold yellow]Auto-reload is now {status}[/bold yellow]") # comment out for now, since its already printing in AutoReloadManager
 
 def main():
     if len(sys.argv) < 2:

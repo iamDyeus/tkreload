@@ -10,7 +10,7 @@ class AutoReloadManager:
     def toggle(self):
         """Toggles the auto-reload feature on or off."""
         self.auto_reload = not self.auto_reload
-        status = "enabled" if self.auto_reload else "disabled"
+        status = "Enabled" if self.auto_reload else "Disabled"
         self.console.print(f"[bold yellow]Auto-reload is now {status}.[/bold yellow]")
 
     def get_status(self):

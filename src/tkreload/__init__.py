@@ -12,7 +12,7 @@ from .help import show_help
 
 __all__ = ["TkreloadApp", "AutoReloadManager", "show_help"]
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 __author__ = "iamDyeus"
 __license__ = "Apache 2.0"
 __email__ = "dyeusyt@gmail.com"

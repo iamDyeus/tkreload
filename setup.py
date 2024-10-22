@@ -1,19 +1,12 @@
 from setuptools import setup, find_packages
 
-# import pathlib
-# Get the long description from the README file
-# here = pathlib.Path(__file__).parent.resolve()
-# long_description = (here / 'README.md').read_text(encoding='utf-8')
-
-def readme():
-    with open('README.md') as f:
-        return f.read()
-
 setup(
     name='tkreload',
     version='1.0.0',
     description='A library that auto reloads your tkinter app whenever file changes are detected.',
-    long_description=readme(),  
+    packages=find_packages(),
+    include_package_data=True,
+    long_description=open('README.md', 'r', encoding='utf-8').read(),  
     long_description_content_type='text/markdown',
     author='iamDyeus',
     author_email='dyeusyt@gmail.com',
@@ -33,7 +26,6 @@ setup(
     keywords='tkinter auto reload python developer tool file-watcher development',
     license='Apache Software License',
     license_file='LICENSE',
-    packages=find_packages(),
     install_requires=[
         'watchdog',
         'rich'

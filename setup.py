@@ -1,15 +1,19 @@
 from setuptools import setup, find_packages
-import pathlib
 
+# import pathlib
 # Get the long description from the README file
-here = pathlib.Path(__file__).parent.resolve()
-long_description = (here / 'README.md').read_text(encoding='utf-8')
+# here = pathlib.Path(__file__).parent.resolve()
+# long_description = (here / 'README.md').read_text(encoding='utf-8')
+
+def readme():
+    with open('README.md') as f:
+        return f.read()
 
 setup(
     name='tkreload',
     version='1.0.0',
     description='A library that auto reloads your tkinter app whenever file changes are detected.',
-    long_description=long_description,  
+    long_description=readme(),  
     long_description_content_type='text/markdown',
     author='iamDyeus',
     author_email='dyeusyt@gmail.com',

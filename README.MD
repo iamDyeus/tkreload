@@ -29,10 +29,10 @@ Let’s assume that a developer restarts their terminal application approximatel
 tkreload solves this issue by providing an automatic reload mechanism for terminal-based Python applications, particularly those using Tkinter. It eliminates the need for manual restarts, saving developers hours of time and streamlining the debugging process.
 
 ## Without tkreload
-![Without tkreload](./.assets/without.gif)
+![Without tkreload](https://github.com/iamDyeus/tkreload/blob/main/.assets/without.gif?raw=true)
 
 ## With tkreload
-![With tkreload](./.assets/with.gif)
+![With tkreload](https://github.com/iamDyeus/tkreload/blob/main/.assets/with.gif?raw=true)
 
 # Getting Started
 
@@ -94,7 +94,7 @@ Contributions are welcome and greatly appreciated! Here's how you can contribute
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-![COMMUNISM](./.assets/communism.png)
+![COMMUNISM](https://github.com/iamDyeus/tkreload/blob/main/.assets/communism.png?raw=true)
 
 # License
 

@@ -1,8 +1,9 @@
 <div align="center">
 
-# `tkreload`
+<!-- # `tkreload` -->
+![TkReload-Logo](https://github.com/iamDyeus/tkreload/blob/main/.assets/logo/svg/logo_light.svg?raw=true)
 
-![Static Badge](https://img.shields.io/badge/mission-auto_reload_tkinter_apps-purple)
+![Static Badge](https://img.shields.io/badge/pip_install-tkreload-purple)
 <br />
 ![Static Badge](https://img.shields.io/badge/Language-Python-red)
 ![GitHub last commit](https://img.shields.io/github/last-commit/iamDyeus/tkreload)

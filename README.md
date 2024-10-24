@@ -37,7 +37,7 @@ tkreload solves this issue by providing an automatic reload mechanism for termin
 # Getting Started
 
 ## Prerequisites
-- Python 3.7+
+- Python 3.9+
 - pip
 
 ## Installation

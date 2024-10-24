@@ -1,8 +1,0 @@
-rich==13.9.2
-setuptools==75.2.0
-watchdog==5.0.3
-pytest==7.4.2
-pytest-cov==4.1.0
-setuptools==75.2.0
-twine==5.1.1
-wheel==0.44.0

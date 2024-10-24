@@ -1,0 +1,48 @@
+[build-system]
+requires = [
+    "setuptools >= 64",
+    "setuptools_scm >= 6.4"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tkreload"
+description = "A library that auto reloads your tkinter app whenever file changes are detected."
+readme = "README.md"
+authors = [{name = "iamDyeus", email = "dyeusyt@gmail.com"}]
+license = {text = "Apache License 2.0"}
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Build Tools",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "watchdog >= 5.0.3",
+    "rich >= 13.9.2"
+]
+dynamic = ["version"]
+
+[project.urls]
+Documentation = "https://github.com/iamDyeus/tkreload/blob/main/README.md"
+"Bug Tracker" = "https://github.com/iamDyeus/tkreload/issues"
+"Source code" = "https://github.com/iamDyeus/tkreload"
+
+[project.optional-dependencies]
+test = [
+    "pytest >= 7",
+    "pytest-cov"
+]
+
+[project.scripts]
+tkreload = "kreload.main:main"
+
+[tool.setuptools.packages.find]
+include = ["tkreload", "tkreload.*"]
+namespaces = false
+
+[tool.setuptools_scm]
+version_scheme = "post-release"
+local_scheme = "dirty-tag"

@@ -11,17 +11,17 @@ class TestAppFileEventHandler(unittest.TestCase):
         self.callback = Mock()
         self.console = MagicMock(spec=Console)
         self.auto_reload_manager = AutoReloadManager(self.console)
-        self.handler = AppFileEventHandler(self.callback, 'test_app.py', self.auto_reload_manager)
+        self.handler = AppFileEventHandler(self.callback, 'example/sample_app.py', self.auto_reload_manager)
 
     def test_on_modified_app_file_auto_reload_enabled(self):
         # Auto-reload is enabled by default
-        event = FileModifiedEvent('test_app.py')
+        event = FileModifiedEvent('example/sample_app.py')
         self.handler.on_modified(event)
         self.callback.assert_called_once()
 
     def test_on_modified_app_file_auto_reload_disabled(self):
         self.auto_reload_manager.toggle()  # Disable auto-reload
-        event = FileModifiedEvent('test_app.py')
+        event = FileModifiedEvent('example/sample_app.py')
         self.handler.on_modified(event)
         self.callback.assert_not_called()
 

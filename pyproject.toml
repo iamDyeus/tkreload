@@ -37,7 +37,7 @@ test = [
 ]
 
 [project.scripts]
-tkreload = "kreload.main:main"
+tkreload = "tkreload.main:main"
 
 [tool.setuptools.packages.find]
 include = ["tkreload", "tkreload.*"]

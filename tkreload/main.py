@@ -3,14 +3,18 @@ import subprocess
 import time
 import os
 import select
-import msvcrt  
-from rich.console import Console 
+import platform
+from rich.console import Console
 from watchdog.observers import Observer
 from .app_event_handler import AppFileEventHandler
 from .file_utils import clear_terminal, file_exists
 from .progress import show_progress
 from .help import show_help
 from .auto_reload import AutoReloadManager
+
+# Only import `msvcrt` on Windows
+if platform.system() == "Windows":
+    import msvcrt
 
 class TkreloadApp:
     """Main application class for managing the Tkinter app."""
@@ -55,20 +59,20 @@ class TkreloadApp:
         """Starts the application, including monitoring and handling commands."""
         self.run_tkinter_app()
         self.monitor_file_changes(self.restart_app)
-        
+
         try:
             self.console.print("\n\n\t[bold cyan]Tkreload[/bold cyan] [bold blue]is running ✅\n\t[/bold blue]- Press [bold cyan]H[/bold cyan] for help,\n\t[bold cyan]- R[/bold cyan] to restart,\n\t[bold cyan]- A[/bold cyan] to toggle auto-reload (currently [bold magenta]{}[/bold magenta]),\n\t[bold red]- Ctrl + C[/bold red] to exit.".format("Disabled" if not self.auto_reload_manager.get_status() else "Enabled"))
 
             while True:
-                if msvcrt.kbhit():
-                    user_input = msvcrt.getch().decode().lower()
-
-                    if user_input == 'h':
-                        show_help("Enabled" if self.auto_reload_manager.get_status() else "Disabled")
-                    elif user_input == 'r':
-                        self.restart_app()
-                    elif user_input == 'a':
-                        self.toggle_auto_reload()
+                if platform.system() == "Windows":
+                    if msvcrt.kbhit():  # Check for keyboard input (Windows only)
+                        user_input = msvcrt.getch().decode('utf-8').lower()  # Read single character input
+                        self.handle_input(user_input)
+                else:
+                    # Use select for Unix-like systems
+                    if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
+                        user_input = sys.stdin.read(1).lower()  # Capture a single character input
+                        self.handle_input(user_input)
 
                 time.sleep(0.1)
 
@@ -79,13 +83,21 @@ class TkreloadApp:
                 self.observer.stop()
                 self.observer.join()
 
+    def handle_input(self, user_input):
+        """Handles the user input commands."""
+        if user_input == 'h':
+            show_help("Enabled" if self.auto_reload_manager.get_status() else "Disabled")
+        elif user_input == 'r':
+            self.restart_app()
+        elif user_input == 'a':
+            self.toggle_auto_reload()
+
     def toggle_auto_reload(self):
         """Toggles auto-reload and updates file monitoring accordingly."""
         self.auto_reload_manager.toggle()
         if self.auto_reload_manager.get_status():
             self.reload_count = 0
         status = "Enabled" if self.auto_reload_manager.get_status() else "Disabled"
-        # self.console.print(f"[bold yellow]Auto-reload is now {status}[/bold yellow]") # comment out for now, since its already printing in AutoReloadManager
 
 def main():
     if len(sys.argv) < 2:

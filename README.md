@@ -61,15 +61,20 @@ python -m venv venv
 source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 ```
 
-3. Install the required dependencies:
+3. Install tkreload (in editable mode):
 ```sh
-pip install -r requirements.txt
+pip install -e.[test]
 ```
 
-4. Install tkreload:
-```sh
-pip install .
+# Usage
+
+To run the app with `tkreload`, use the following command in your terminal:
+
+```bash
+tkreload your_app.py
 ```
+
+Now, whenever you save changes to your script, tkreload will automatically reload your application.
 
 ## 🌟 Features
 
@@ -82,15 +87,6 @@ pip install .
 - **Real-Time Feedback:** Uses `rich` for styled console feedback and progress indicators.
 
 
-# Usage
-
-To run the app with `tkreload`, use the following command in your terminal:
-
-```bash
-tkreload your_app.py
-```
-
-Now, whenever you save changes to your script, tkreload will automatically reload your application.
 
 ## Testing
 To verify tkreload functionality, follow these steps:
@@ -99,7 +95,7 @@ To verify tkreload functionality, follow these steps:
 
 2.Run Tests Using Pytest
 ```bash
-pytest .
+pytest -v
 ```
 This will run the test suite and confirm tkreload is working as expected.
 

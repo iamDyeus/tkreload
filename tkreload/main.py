@@ -4,7 +4,6 @@ import time
 import os
 import select
 import platform
-import argparse
 from rich.console import Console
 from watchdog.observers import Observer
 from .app_event_handler import AppFileEventHandler
@@ -16,7 +15,6 @@ from .auto_reload import AutoReloadManager
 # Only import `msvcrt` on Windows
 if platform.system() == "Windows":
     import msvcrt
-
 
 class TkreloadApp:
     """Main application class for managing the Tkinter app."""
@@ -41,13 +39,9 @@ class TkreloadApp:
             self.observer.stop()
             self.observer.join()
 
-        event_handler = AppFileEventHandler(
-            on_reload, self.app_file, self.auto_reload_manager
-        )
+        event_handler = AppFileEventHandler(on_reload, self.app_file, self.auto_reload_manager)
         self.observer = Observer()
-        self.observer.schedule(
-            event_handler, path=os.path.dirname(self.app_file) or ".", recursive=False
-        )
+        self.observer.schedule(event_handler, path=os.path.dirname(self.app_file) or '.', recursive=False)
         self.observer.start()
         return self.observer
 
@@ -55,9 +49,7 @@ class TkreloadApp:
         """Restarts the Tkinter app."""
         if self.process:
             self.reload_count += 1
-            self.console.log(
-                f"[bold yellow]Restarting the Tkinter app... (x{self.reload_count})[/bold yellow]"
-            )
+            self.console.log(f"[bold yellow]Restarting the Tkinter app... (x{self.reload_count})[/bold yellow]")
             self.process.terminate()
             self.process.wait()
             time.sleep(1)
@@ -69,27 +61,17 @@ class TkreloadApp:
         self.monitor_file_changes(self.restart_app)
 
         try:
-            self.console.print(
-                "\n\n\t[bold cyan]Tkreload[/bold cyan] [bold blue]is running ✅\n\t[/bold blue]- Press [bold cyan]H[/bold cyan] for help,\n\t[bold cyan]- R[/bold cyan] to restart,\n\t[bold cyan]- A[/bold cyan] to toggle auto-reload (currently [bold magenta]{}[/bold magenta]),\n\t[bold red]- Ctrl + C[/bold red] to exit.".format(
-                    "Disabled"
-                    if not self.auto_reload_manager.get_status()
-                    else "Enabled"
-                )
-            )
+            self.console.print("\n\n\t[bold cyan]Tkreload[/bold cyan] [bold blue]is running ✅\n\t[/bold blue]- Press [bold cyan]H[/bold cyan] for help,\n\t[bold cyan]- R[/bold cyan] to restart,\n\t[bold cyan]- A[/bold cyan] to toggle auto-reload (currently [bold magenta]{}[/bold magenta]),\n\t[bold red]- Ctrl + C[/bold red] to exit.".format("Disabled" if not self.auto_reload_manager.get_status() else "Enabled"))
 
             while True:
                 if platform.system() == "Windows":
                     if msvcrt.kbhit():  # Check for keyboard input (Windows only)
-                        user_input = (
-                            msvcrt.getch().decode("utf-8").lower()
-                        )  # Read single character input
+                        user_input = msvcrt.getch().decode('utf-8').lower()  # Read single character input
                         self.handle_input(user_input)
                 else:
                     # Use select for Unix-like systems
                     if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
-                        user_input = sys.stdin.read(
-                            1
-                        ).lower()  # Capture a single character input
+                        user_input = sys.stdin.read(1).lower()  # Capture a single character input
                         self.handle_input(user_input)
 
                 time.sleep(0.1)
@@ -103,13 +85,11 @@ class TkreloadApp:
 
     def handle_input(self, user_input):
         """Handles the user input commands."""
-        if user_input == "h":
-            show_help(
-                "Enabled" if self.auto_reload_manager.get_status() else "Disabled"
-            )
-        elif user_input == "r":
+        if user_input == 'h':
+            show_help("Enabled" if self.auto_reload_manager.get_status() else "Disabled")
+        elif user_input == 'r':
             self.restart_app()
-        elif user_input == "a":
+        elif user_input == 'a':
             self.toggle_auto_reload()
 
     def toggle_auto_reload(self):
@@ -119,22 +99,12 @@ class TkreloadApp:
             self.reload_count = 0
         status = "Enabled" if self.auto_reload_manager.get_status() else "Disabled"
 
-
 def main():
-    parser = argparse.ArgumentParser(
-        description="Real-time reload Tkinter app",
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-    )
-    parser.add_argument("app_file", help="Tkinter app file path")
-
-    args = parser.parse_args()
-
-    app_file = args.app_file
-
-    if not app_file:
-        parser.print_help()
+    if len(sys.argv) < 2:
         Console().print("[bold red]Error: No Tkinter app file provided![/bold red]")
         sys.exit(1)
+
+    app_file = sys.argv[1]
 
     if not file_exists(app_file):
         Console().print(f"[bold red]Error: File '{app_file}' not found![/bold red]")
@@ -142,7 +112,6 @@ def main():
 
     tkreload_app = TkreloadApp(app_file)
     tkreload_app.start()
-
 
 if __name__ == "__main__":
     clear_terminal()

@@ -28,6 +28,7 @@ class TkreloadApp:
         self.process = None
         self.observer = None
         self.reload_count = 0
+        self.startup_time=0
 
     def run_tkinter_app(self):
         """Run the given Tkinter app."""
@@ -65,17 +66,20 @@ class TkreloadApp:
 
     def start(self):
         """Starts the application, including monitoring and handling commands."""
+        start_time = time.time()  # Record the start time
         self.run_tkinter_app()
         self.monitor_file_changes(self.restart_app)
+        self.startup_time = (time.time() - start_time) * 1000  # Calculate startup time in milliseconds
 
         try:
             self.console.print(
-                "\n\n\t[bold cyan]Tkreload[/bold cyan] [bold blue]is running ✅\n\t[/bold blue]- Press [bold cyan]H[/bold cyan] for help,\n\t[bold cyan]- R[/bold cyan] to restart,\n\t[bold cyan]- A[/bold cyan] to toggle auto-reload (currently [bold magenta]{}[/bold magenta]),\n\t[bold red]- Ctrl + C[/bold red] to exit.".format(
-                    "Disabled"
-                    if not self.auto_reload_manager.get_status()
-                    else "Enabled"
-                )
+                f"\n[bold white]Tkreload ✅[/bold white] [dim](ready in {self.startup_time:.2f} ms)[/dim]\n"
+                f"\t[bold cyan]→[/bold cyan] [bold white]Auto-reload:[/bold white] [bold magenta]{'Enabled' if self.auto_reload_manager.get_status() else 'Disabled'}[/bold magenta]\n"
+                "\t[bold cyan]→[/bold cyan] [bold white]Help:[/bold white] Press [bold cyan]H[/bold cyan]\n"
+                "\t[bold cyan]→[/bold cyan] [bold white]Restart:[/bold white] Press [bold cyan]R[/bold cyan]\n"
+                "\t[bold cyan]→[/bold cyan] [bold white]Exit:[/bold white] Press [bold red]Ctrl + C[/bold red]"
             )
+
 
             while True:
                 if platform.system() == "Windows":
